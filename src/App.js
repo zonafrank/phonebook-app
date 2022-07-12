@@ -83,7 +83,7 @@ function App() {
           );
           displayNotification("success", `Updated ${returnedPerson.name}`);
         })
-        .catch((err) => displayNotification("error", err.message));
+        .catch((err) => displayNotification("error", err.response.data.error));
     } else {
       const newPersonObject = {
         name: newName,
@@ -99,7 +99,7 @@ function App() {
           displayNotification("success", `Added ${returnedPerson.name}`);
         })
         .catch((err) => {
-          displayNotification("error", err.message);
+          displayNotification("error", err.response.data.error);
         });
     }
   };
@@ -113,7 +113,7 @@ function App() {
     personsService
       .remove(id)
       .then((status) => {
-        if (status === 200) {
+        if (status === 204) {
           setPersons(persons.filter((p) => p.id !== id));
           displayNotification("success", `Deleted ${person.name}`);
         }
